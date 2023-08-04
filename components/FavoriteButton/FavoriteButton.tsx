@@ -11,18 +11,18 @@ interface FavoriteButtonProps {
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   const { mutate: mutateFavorites } = useFavorites();
-  const {
-    data: { currentUser },
-    mutate,
-  } = useCurrentUser();
+
+  const { data: currentUser, mutate } = useCurrentUser();
 
   const isFavorite = useMemo(() => {
     const list = currentUser?.favoriteIds || [];
+
     return list.includes(movieId);
   }, [currentUser, movieId]);
 
   const toggleFavorites = useCallback(async () => {
     let response;
+
     if (isFavorite) {
       response = await axios.delete("/api/favorite", { data: { movieId } });
     } else {
@@ -31,7 +31,10 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
 
     const updatedFavoriteIds = response?.data?.favoriteIds;
 
-    mutate({ ...currentUser, favoriteIds: updatedFavoriteIds });
+    mutate({
+      ...currentUser,
+      favoriteIds: updatedFavoriteIds,
+    });
     mutateFavorites();
   }, [movieId, isFavorite, currentUser, mutate, mutateFavorites]);
 

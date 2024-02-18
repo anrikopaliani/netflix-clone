@@ -17,7 +17,7 @@ const Login = async () => {
 
   return (
     <div className="mt-24 rounded bg-black/80 py-10 px-6 md:mt-0 md:max-w-sm md:px-14">
-      <form>
+      <form method="POST" action="/api/auth/signin">
         <h1 className="text-3xl font-semibold text-white">Log in</h1>
         <div className="space-y-4 mt-5">
           <Input

@@ -30,7 +30,7 @@ async function getData(userId: string) {
 
 const WatchlistPage = async () => {
   const session = await getServerSession(authOptions);
-  const data = await getData("abc");
+  const data = await getData(session?.user?.email as string);
   return (
     <>
       <h1 className="text-4xl font-bold underline mt-10 px-5 sm:px-0 text-white">

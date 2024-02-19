@@ -84,7 +84,7 @@ const getData = async (category: string, userId: string) => {
 
 const CategoryPage = async ({ params }: { params: { genre: string } }) => {
   const session = await getServerSession(authOptions);
-  const data = await getData(params.genre, "abc");
+  const data = await getData(params.genre, session?.user?.email as string);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 sm:px-0 mt-0 gap-6">
